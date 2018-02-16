@@ -25,8 +25,8 @@ class Executor:
 		lexer = Lexer(file)
 
 		lexer.tokenize()
-		#print("")
-		#print("TOKENS: "+str(lexer.tokens))
+		# print("")
+		# print("TOKENS: "+str(lexer.tokens))
 		parser = Parser(lexer.tokens)
 		#print("")
 		parser.build_AST()
@@ -83,14 +83,31 @@ class Executor:
 					print("fatal error: math-error: unknown error in: "+str(c[i]["value"]))
 					print("line: "+str(c[0]["line"]))
 					sys.exit(1)
+
 			elif c[i]["type"] == "dict":
 				# print("EXEC: "+str(k))
 				c[i] = self.get_variable_in_scope(c[i]["value"])
 
-		# print("EXEC: "+str(c))
+			elif c[i]["type"] == "typeof":
+				c[i]["type"] = "word"
+				name = c[i]["value"][7:-1]
+				found = False
+
+				for v in Variables.variables:
+					if v["name"] == name:
+						c[i]["value"] = v["type"]
+						found = True
+						break
+
+				if found == False:
+					print("fatal error: typeof<>: variable not found: "+name)
+					print("line: "+str(c[0]["line"]))
+					sys.exit(1)
+
+		#print("EXEC: "+str(c)) # !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
 		if c[0]["type"] == "keyword":
-			if c[0]["value"] == "print":
+			if c[0]["value"] == "println":
 				for i in c[1:]:
 					if i["type"] == "word":
 						t = False
@@ -122,6 +139,37 @@ class Executor:
 						sys.stdout.flush()
 
 				print("")
+
+			elif c[0]["value"] == "print":
+				for i in c[1:]:
+					if i["type"] == "word":
+						t = False
+						for v in Variables.variables:
+							if v["name"] == i["value"]:
+								v["value"] = re.sub(r"<AF!!!456:23>", "\"", str(v["value"]))
+								v["value"] = re.sub(r"\\n", "\n", str(v["value"]))
+								v["value"] = re.sub(r"<MKLAO!!!456:23>", "(", (v["value"]))
+								v["value"] = re.sub(r"<MKLAC!!!456:23>", ")", (v["value"]))
+
+								sys.stdout.write(""+str(v["value"]))
+								sys.stdout.flush()
+								t = True
+
+						if t == False:
+							i["value"] = re.sub(r"<AF!!!456:23>", "\"", str(i["value"]))
+							i["value"] = re.sub(r"\\n", "\n", str(i["value"]))
+							i["value"] = re.sub(r"<MKLAO!!!456:23>", "(", (i["value"]))
+							i["value"] = re.sub(r"<MKLAC!!!456:23>", ")", (i["value"]))
+
+							sys.stdout.write(str(i["value"]))
+							sys.stdout.flush()
+					else:
+						i["value"] = re.sub(r"<AF!!!456:23>", "\"", str(i["value"]))
+						i["value"] = re.sub(r"\\n", "\n", str(i["value"]))
+						i["value"] = re.sub(r"<MKLAO!!!456:23>", "(", (i["value"]))
+						i["value"] = re.sub(r"<MKLAC!!!456:23>", ")", (i["value"]))
+						sys.stdout.write(str(i["value"]))
+						sys.stdout.flush()
 
 			elif c[0]["value"] == "return":
 				return 2
@@ -278,5 +326,51 @@ class Executor:
 						sys.exit(1)
 					else:
 						print("fatal error: run: wrong type: "+c[1]["value"])
+						print("line: "+str(c[0]["line"]))
+						sys.exit(1)
+
+#			elif c[0]["value"] == "typeof":
+#				if len(c) != 3:
+#					print("fatal error: typeof: needs 2 arguments. given: "+str(len(c)-1))
+#					print("line: "+str(c[0]["line"]))
+#					sys.exit(1)
+#				else:
+#					if c[2]["type"] != "word":
+#						print("fatal error: typeof: wrong type: "+c[1]["value"])
+#						print("line: "+str(c[0]["line"]))
+#						sys.exit(1)
+#
+#					for i in range(0, len(Variables.variables)):
+#						if Variables.variables[i]["name"] == c[1]["value"]:
+#
+#					print("fatal error: typeof: variable not found: "+c[1]["value"])
+#					print("line: "+str(c[0]["line"]))
+#					sys.exit(1)
+
+
+			elif c[0]["value"] == "input":
+				if len(c) != 2:
+					print("fatal error: input: needs 1 argument. given: "+str(len(c)-1))
+					print("line: "+str(c[0]["line"]))
+					sys.exit(1)
+				else:
+					if c[1]["type"] != "word":
+						print("fatal error: input: wrong type: "+c[1]["value"])
+						print("line: "+str(c[0]["line"]))
+						sys.exit(1)
+					else:
+						for i in range(0, len(Variables.variables)):
+							if Variables.variables[i]["name"] == c[1]["value"]:
+								string = input();
+
+								if re.match("([0-9]*(\.[0-9]+)|[0-9]+)", string):
+									Variables.variables[i]["type"] = "int"
+								else:
+									Variables.variables[i]["type"] = "string"
+
+								Variables.variables[i]["value"] = string
+								return 0
+
+						print("fatal error: input: variable not found: "+c[1]["value"])
 						print("line: "+str(c[0]["line"]))
 						sys.exit(1)
