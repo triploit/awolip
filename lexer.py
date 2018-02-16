@@ -92,10 +92,6 @@ class Lexer:
 				self.tokens.append({"type":"keyword", "value": "".join(tmp), "line": linen})
 				tmp = []
 
-			elif "".join(tmp) in self.operators and tid == "":
-				self.tokens.append({"type":"operator", "value": "".join(tmp), "line": linen})
-				tmp = []
-
 			elif l == ";" and (tid == ""):
 				if re.match("([0-9]*(\.[0-9]+)|[0-9]+)", "".join(tmp)):
 					self.tokens.append({"type": "int", "value": float("".join(tmp)), "line": linen})
@@ -108,6 +104,10 @@ class Lexer:
 				elif "".join(tmp) in self.operators and tid == "":
 					self.tokens.append({"type":"operator", "value": "".join(tmp), "line": linen})
 					tmp = []
+				else:
+					if tmp != []:
+						self.tokens.append({"type":"unknown", "value": "".join(tmp), "line": linen})
+
 
 				self.tokens.append({"type":"semicolon", "value": ";"})
 				tmp = []
@@ -127,6 +127,9 @@ class Lexer:
 				elif "".join(tmp) in self.operators and tid == "":
 					self.tokens.append({"type":"operator", "value": "".join(tmp), "line": linen})
 					tmp = []
+				else:
+					if tmp != []:
+						self.tokens.append({"type":"unknown", "value": "".join(tmp), "line": linen})
 
 				tmp = []
 				continue
