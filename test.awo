@@ -1,51 +1,55 @@
-print <= =;
+println <= =;
 
 scope test {
 	new const 3.14159;
 
 	new f {
-			print "SCOPE TEST.F!";
+			println "SCOPE TEST.F!";
 			new a (12/4);
 	};
 
 	scope u_T {
 		new f {
 			set a 15;
-			print "SCOPE TEST.U_T.F";
+			println "SCOPE TEST.U_T.F";
 		};
 	};
 };
 
 run test.f;
 run test.u_T.f;
-print "a = " a;
-print "const = " test.const "\n";
+println "a = " a;
+println "const = " test.const "\n";
 
 new main {
-	print "=== MAIN ===\n";
-	print "Hello World!";
-	print 13;
-	print "\n===========\n";
+	println "=== MAIN ===\n";
+	println "Hello World!";
+	println 13;
+	println "\n===========\n";
 };
 
-print "Now comes the main!\n";
+println "Now comes the main!\n";
 
 if main == main {
 	run main;
 
 } else {
-	print "ELSE!";
+	println "ELSE!";
 };
 
 new v 12;
 set v ((13+5+v)*2);
 
 if v == (12+1) {
-	print "V is 13!";
+	println "V is 13!";
 } else {
-	print "V is not 13!";
+	println "V is not 13!";
 };
 
 run {
-	print "Result: \"" v "\"";
+	println "Result: \"" v "\"";
 };
+
+print "Gib was ein: ";
+input v;
+println typeof<v>;
