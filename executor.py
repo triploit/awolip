@@ -204,6 +204,20 @@ class Executor:
 						print("line: "+str(c[0]["line"]))
 						sys.exit(1)
 
+					if c[1]["type"] == "word":
+						for v in Variables.variables:
+							if c[1]["value"] == v["name"]:
+								c[1]["value"] = v["value"]
+								c[1]["type"] = v["type"]
+								break
+
+					if c[3]["type"] == "word":
+						for v in Variables.variables:
+							if c[3]["value"] == v["name"]:
+								c[3]["value"] = v["value"]
+								c[3]["type"] = v["type"]
+								break
+
 					if c[2]["value"] == "==":
 						if c[1]["value"] == c[3]["value"]:
 							self.programm(c[4]["value"])
