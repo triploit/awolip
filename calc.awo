@@ -1,0 +1,31 @@
+new z1 0;
+print "Give me a number:         ";
+input z1;
+
+new z2 0;
+print "Give me another number:   ";
+input z2;
+
+if typeof<z1> != "int" {
+	println "The first input wasn't a number!";
+} else {
+	if typeof<z2> != "int" {
+		println "The second input wasn't a number!";
+	} else {
+		print "What do you want to do? (+, -, * or /): ";
+		new op "";
+		input op;
+
+		if op == "+" {
+			println "Resoult: " (z1+z2);
+		} else {if op == "-" {
+			println "Resoult: " (z1-z2);
+		} else {if op == "*" {
+			println "Resoult: " (z1*z2);
+		} else {if op == "/" {
+			println "Resoult: " (z1/z2);
+		} else {
+			println "This operation doesn't exist.";
+		};};};};
+	};
+};
