@@ -8,7 +8,7 @@ import sys
 def main():
 	if sys.argv[1][0] == "-":
 		if sys.argv[1] == "--help" or sys.argv[1] == "-h" or sys.argv[1] == "-help":
-			print("""call: ./awolip [source file]
+			print("""usage: ./awolip [source file]
 options:
 	-v,--version		- shows the current version of the interpreter
 	-h,-help,--help		- shows this
