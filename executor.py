@@ -104,7 +104,7 @@ class Executor:
 					print("line: "+str(c[0]["line"]))
 					sys.exit(1)
 
-		#print("EXEC: "+str(c)) # !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+		#print("EXEC: "+str(c))
 
 		if c[0]["type"] == "keyword":
 			if c[0]["value"] == "println":
