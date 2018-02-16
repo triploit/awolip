@@ -1,0 +1,49 @@
+scope test {
+	new konstante 3.14159;
+
+	new f {
+			print "SCOPE TEST.F!";
+			new a (12/4);
+	};
+
+	scope under {
+		new f {
+			set a 15;
+			print "SCOPE TEST.UNDER.F";
+		};
+	};
+};
+
+run test.f;
+run test.under.f;
+print "a = " a;
+print "konstante = " test.konstante "\n";
+
+new main {
+	print "=== MAIN ===\n";
+	print "Hallo Welt!";
+	print 13;
+	print "\n===========\n";
+
+	return;
+};
+
+print "Jetzt kommt die Main!\n";
+if main == main {
+	run main;
+} else {
+	print "ELSE!";
+};
+
+new v 12;
+set v ((13+5+v)*2);
+
+if v == (12+1) {
+	print "V ist 13!";
+} else {
+	print "V ist nicht 13!";
+};
+
+run {
+	print "Ergebnis: \"" v "\"";
+};
