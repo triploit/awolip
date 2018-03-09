@@ -17,8 +17,8 @@ You have an idea for this project and don't know where to say it?
 Here is our slack: https://bit.ly/2o3FWzv""")
 
 		elif sys.argv[1] == "-v" or sys.argv[1] == "--version":
-			print("v0.0.1")
-	else:
+			print("v0.1.2")
+	elif len(sys.argv) > 1:
 		fname = sys.argv[1]
 		file = open(fname, "r")
 		Executor().programm(file)
