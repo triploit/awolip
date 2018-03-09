@@ -1,7 +1,7 @@
 println <= =;
 
 scope test {
-	new const 3.14159;
+	new const 3.14159; # This is a comment
 
 	new f {
 			println "SCOPE TEST.F!";
@@ -16,8 +16,8 @@ scope test {
 	};
 };
 
-run test.f;
-run test.u_T.f;
+run test.f; # Its possible to call functions with the run keyword
+test.u_T.f; # Its also possible to call functions without the keyword, yout can use it as a keyword
 println "a = " a;
 println "const = " test.const "\n";
 
@@ -31,7 +31,7 @@ new main {
 println "Now comes the main!\n";
 
 if main == main {
-	run main;
+	main;
 
 } else {
 	println "ELSE!";
@@ -50,6 +50,6 @@ run {
 	println "Result: \"" v "\"";
 };
 
-print "Gib was ein: ";
+print "Give me something: ";
 input v;
 println typeof<v>;
