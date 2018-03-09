@@ -38,7 +38,7 @@ class Lexer:
 			"if",
 			"scope",
 			"input",
-			"typeof"
+			"while"
 		]
 
 		self.operators = [
@@ -61,6 +61,27 @@ class Lexer:
 		cb = 0
 
 		for l in code:
+			if l == "#" and tid == "":
+				tid = "comment1"
+				continue
+
+			if l == "~" and tid == "":
+				tid = "comment2"
+				continue
+
+			if l == "~" and tid == "comment2":
+				tid = ""
+				continue
+
+			if tid == "comment2":
+				continue
+
+			if tid == "comment1":
+				if l == "\n":
+					linen += 1
+					tid = ""
+				continue
+
 			if l == "\n":
 				linen += 1
 
